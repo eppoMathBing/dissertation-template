@@ -1,0 +1,20 @@
+# ignore all latex output files
+**.aux
+**.bbl
+**.blg
+**.lof
+**.log
+**.lot
+**.out
+**.pdf
+**.toc
+# ignore latexmk files
+**.fdb_latexmk
+**.fls
+# ignore biblatex files
+**.bcf
+**.run.xml
+# ignore other/
+other/
+# ignore temporary files
+tmp/

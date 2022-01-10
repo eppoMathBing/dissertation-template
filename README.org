@@ -1,0 +1,153 @@
+#+title: README
+#+author: Chris Eppolito
+#+email: eppolito[at]math-dot-binghamton dot edu
+#+description: Brief description of how the thesis template works.
+#+date: 2022-01-10
+
+* Introduction
+The accompanying files constitute a Dissertation Template for the State University of New York at Binghamton.
+I am in the Department of Mathematical Sciences, so this template reflects the needs of this department (or at least me, the author).
+* Dissertation Structure
+The general guidelines for the thesis (at the time of this writing) require (or permit, indicated with "*") the following chapters in a thesis, so long as they appear in this order:
+1. Title Page
+2. Copyright Notice
+3. Committee Page
+4. Abstract
+5. Dedication (optional)
+6. Acknowledgements (optional)
+7. Preface (required if using published results)
+8. Table of Contents
+9. List of Tables (required if tables present)
+10. List of Figures (required if figures present)
+11. List of Notations (optional)
+12. Body of Manuscript (i.e. your content)
+13. Appendices (if necessary)
+14. Notes (if necessary)
+15. Bibliography
+
+On top of this, there are various rules surrounding pagination, formatting, and layout.
+These are all very boring, and you shouldn't have to think about it!
+For this reason, I give you my Dissertation Template.
+* Template Structure
+This template for the thesis is a multi-file construction.
+In particular, the dissertation is split over several files.
+I believe that this is the best-possible case: it makes the thesis template modular and allows you, dear writer, to make only the changes that you need, without having to think about the rest of the formatting (which I have already done for you).
+
+This template directory is structured as follows:
++ =content/=
+
+  This directory contains all of your content for the thesis.
+  - =introduction.tex= (required)
+
+    Introduction to the thesis.
+  - All other chapters of the thesis content, one per file.
+  - =sources.bib=
+
+    A =BibTeX= file of reference entries.
+    The formatting of these is controlled by =format/bibliography.tex=.
+    Add your sources here, and then just cite them as you usually would in the chapters.
++ =format/=
+
+  Do *not* modify the files in this directory unless you know what you're doing...
+  - =bibliography.tex= (required)
+
+    This includes the setup for =BibLaTeX=.
+  - =frontMatter.tex= (required)
+
+    This is the general setup for the front matter of the Dissertation.
+  - =macros.tex= (required)
+
+    This contains formatting macros for the dissertation.
++ =info/=
+
+  This directory contains things you should only have to modify once or twice.
+  You can remove any file not marked "required" if you don't need it; just remember to also comment the corresponding section of =main.tex=.
+  - =abstract.tex= (required)
+
+    Your abstract for the dissertation.
+  - =acknowledgements.tex=
+
+    Acknowledgements page.
+  - =author.tex= (required)
+
+    Basic information for the thesis front matter.
+  - =dedication.tex=
+
+    Dedications page.
+  - =notation.tex=
+
+    Table of notations.
+  - =notes.tex=
+
+    Notes pages.
+  - =preface.tex=
+
+    Preface pages.
+    This is mostly for the legal stuff surrounding previously published work you might want to include, e.g., permissions statements from journals.
++ =other/=
+
+  Optional directory for other stuff...
++ =tmp/=
+
+  Directory for temporary files.
++ =.gitignore=
+
+  A sensible =.gitignore= for =LaTeX= projects using =latexmk=.
++ =main.tex= (required)
+
+  This file ties everything together.
+  Each time you want to add a chapter or appendix to =content/=, you need to add it here with the snippet =\include{content/yourFilename}=, where =yourFilename.tex= is the file added.
+  Note that the include statement does *not* use the file extension =.tex=...
++ =preamble.tex= (required)
+
+  This is where you put your custom =LaTeX= macros.
+  Do *not* add anything about formatting to this file; likely this will clash with the formatting you need.
+  Just focus on your content.
++ =produceChapter.sh=
+
+  This file contains shell instructions on making a =LaTeX= file for only one chapter of the thesis.
+  This is useful if you want someone to proofread a chapter.
++ =README.org=
+
+  A short README introduction to how this all works.
+  Hey, that's me!
+* Easy Proofreading Guide
+To make files on a per-chapter basis for proofreading, e.g., to send to your advisor, use the following shell commands from a terminal in the thesis directory.
+#+begin_src shell
+  ./produceChapter.sh NameOfChapter NameOfOutput
+#+end_src
+This will build a working =.tex= file in =tmp/= with body from =content/NameOfChapter.tex= and all of your preamble stuff.
+You can then compile the file in =tmp/= and send the PDF to whoever you want :)
+
+Note that the produced =.tex= file will *not* have the same formatting as the thesis general.
+This is intentional!
+The thesis formatting is a bit wasteful on paper.
+Modify the =.tex= file if you don't like it :P
+* Minimal Start-Up Guide
+To get started minimally with this, you should:
+1. Modify =info/author.tex= to include all the requested information.
+2. Add your chapters to =content/=.
+3. Add preamble to =preamble.tex=, being careful not to call any of the packages listed in the [[gotchas][Gotchas section]].
+* Gotchas
+<<gotchas>>
+Here are some pitfalls of this template at the moment.
+1. You can't call any of the packages I needed to make this all work in your preamble.
+   These are the forbidden packages:
+   + =biblatex=
+   + =geometry=
+   + =hyperref=
+   + =ifthen=
+   + =setspace=
+   The good news: you can use things provided by these packages (without options) as normal.
+2. You can't just copy-paste your preamble into =preamble.tex=...
+   You will need to do some debugging if your preamble clashes...
+3. The only good way to edit a chapter (with previewing) is by first using =produceChapter.sh= and then editing the resulting file in =tmp/=, and finally overwriting the original chapter.
+   Note that this would have been a problem otherwise, too...
+   /Don't forget to update the =preamble.tex=!/
+4. You basically have to use =latexmk= to keep track of everything...
+   This is an issue mostly for producing references, and it exists outside of this template...
+* TODO Future Expansions
+1. [ ] Add a script to generate an appropriate =main.tex= from the existing =content/= and =info/=.
+2. [ ] Make the formatting stuff into a full-on style file.
+
+   This will probably be a whole project in its own right...
