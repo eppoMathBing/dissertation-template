@@ -1,0 +1,102 @@
+% THIS DOCUMENT CREATED TO COMPLY WITH THE 1 APRIL 2019 EDIT OF THE BINGHAMTON UNIVERSITY DISSERTATION FORMATTING GUIDE
+% SEE https://drive.google.com/open?id=1dB5KJEhIMEDsQwhOQuSGr-fzXiBVX1te
+
+\documentclass[12pt]{article}   % KEEP THIS AS "article"!
+\include{format/macros}
+\include{info/author}
+\include{format/bibliography}
+\addbibresource{sources.bib}
+\include{preamble}
+
+\begin{document}
+\singlespacing
+% builds the first few pages of the thesis
+\include{format/frontMatter}    % DO NOT MODIFY THAT FILE!
+\doublespacing                  % double spaces body text in document
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% ABSTRACT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\include{info/abstract}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DEDICATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (remove if none)
+\include{info/dedication}
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ACKNOWLEDGEMENTS %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (remove if none)
+\include{info/acknowledgements}
+%%%%%%%%%%%%%%%%%%%%%%%%%%% PREFACE MATERIAL %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (remove if none/unnecessary)
+\include{info/preface}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONTENTS TABLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\singlespacing
+\skipTwo\vspace{\headspace}
+
+\tableofcontents
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% LIST OF TABLES %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (remove if no tables)
+\skipTwo\vspace{\headspace}
+
+\addcontentsline{toc}{section}{List of Tables}
+\listoftables
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIGURES LIST %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (remove if no figures)
+\skipTwo\vspace{\headspace}
+
+\addcontentsline{toc}{section}{List of Figures}
+\listoffigures
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% LIST OF NOTATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (remove if no notations list)
+\include{info/notation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\doublespacing
+\include{content/introduction}
+
+% for silly reasons, the following needs to appear right here...
+\setcounter{page}{1}            % reset numbering
+\pagenumbering{arabic}          % set number style to arabic numerals
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%% BODY OF MANUSCRIPT %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% this is where your thesis content goes
+% - thesis is in multiple tex files separated for content
+% - to make a new chapter, make file "NameOfChapter.tex" and write:
+% % '''
+% % \chapter{Name of Chapter}
+% % [CONTENT GOES HERE]
+% % '''
+% - then write "\include{NameOfChapter}" below in the appropriate place
+% - these chapter files cannot contain preamble stuff!
+
+\include{content/chapter1}
+
+\include{content/chapter2}
+
+% ETC, ETC, ETC
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% see remarks on manuscript content
+% - only change: write "\appendix" before "\include{NameOfAppendix}"
+\appendix
+\include{content/appendix}
+
+% \appendix
+% \include{AnotherAppendixName}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% NOTE PAGES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY? (probably remove)
+\include{info/notes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BIBLIOGRAPHY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\addcontentsline{toc}{section}{References}
+\singlespacing
+
+\skipTwo\vspace{\headspace}
+
+\printbibliography
+\end{document}

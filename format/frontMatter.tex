@@ -1,0 +1,103 @@
+% next comes the meat of the cover matters
+% - don't modify unless you have to do so
+% - carefully preserve structure of the legalese statements below
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{roman}           % set page numbers to roman numerals
+\thispagestyle{empty}           % no page number here
+
+\phantom{}
+\vspace{1in}                    % necessary spacing
+{\begin{center}
+    \title
+  \end{center}}          % prints title
+
+\vfill
+
+\begin{center}
+  BY
+  \skipLine
+  \expandafter\MakeUppercase\expandafter{\author}
+  \skipLine
+  \degreeOne\par
+  \ifthenelse{\isundefined{\degreeTwo}}{}{\degreeTwo\par}
+  \ifthenelse{\isundefined{\degreeThree}}{}{\degreeThree\par}
+  \ifthenelse{\isundefined{\degreeFour}}{}{\degreeFour\par}
+  \ifthenelse{\isundefined{\degreeFive}}{}{\degreeFive\par}
+  \ifthenelse{\isundefined{\degreeSix}}{}{\degreeSix\par}
+  \ifthenelse{\isundefined{\degreeSeven}}{}{\degreeSeven\par}
+  \ifthenelse{\isundefined{\degreeEight}}{}{\degreeEight\par}
+  \ifthenelse{\isundefined{\degreeNine}}{}{\degreeNine\par}
+  \ifthenelse{\isundefined{\degreeTen}}{}{\degreeTen\par}
+\end{center}
+
+\vfill
+
+\begin{center}
+  \dissertationOrThesis{}
+  \skipTwo
+  Submitted in partial fulfillment of the requirements for\par
+  the degree of \degreeName{}\par
+  in the Graduate School of\par
+  Binghamton University\par
+  State University of New York\par
+  \acceptanceYear{}
+\end{center}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% COPYRIGHT NOTICE %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\thispagestyle{empty}           % no page number here
+
+\phantom{}
+
+\vfill
+
+{\centering
+  \copyright\ Copyright by \legalAuthor\ \acceptanceYear\par
+  All Rights Reserved\par
+}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMMITTEE PAGE %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\phantom{}
+
+\vfill
+
+{\centering
+  Accepted in partial fulfillment of the requirements for\par
+  the degree of Doctor of Philosophy in Mathematics\par
+  in the Graduate School of\par
+  Binghamton University\par
+  State University of New York\par
+  \acceptanceYear{}
+  \skipTwo
+  \acceptanceMonth{} \acceptanceDate{}, \acceptanceYear{}
+  \skipTwo
+  \committeeChair{}
+  \ifthenelse{\isundefined{\committeeOne}}{}{\skipTwo\committeeOne{}}
+  \ifthenelse{\isundefined{\committeeTwo}}{}{\skipTwo\committeeTwo{}}
+  \ifthenelse{\isundefined{\committeeThree}}{}{\skipTwo\committeeThree{}}
+  \ifthenelse{\isundefined{\committeeFour}}{}{\skipTwo\committeeFour{}}
+  \ifthenelse{\isundefined{\committeeFive}}{}{\skipTwo\committeeFive{}}
+  \ifthenelse{\isundefined{\committeeSix}}{}{\skipTwo\committeeSix{}}
+  \ifthenelse{\isundefined{\committeeSeven}}{}{\skipTwo\committeeSeven{}}
+  \ifthenelse{\isundefined{\committeeEight}}{}{\skipTwo\committeeEight{}}
+  \ifthenelse{\isundefined{\committeeNine}}{}{\skipTwo\committeeNine{}}
+  \ifthenelse{\isundefined{\committeeTen}}{}{\skipTwo\committeeTen{}}
+  \skipTwo\committeeOutside{}\par
+}
+
+
+\newpage

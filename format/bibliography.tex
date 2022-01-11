@@ -1,0 +1,18 @@
+% bibliography formatting
+\usepackage[                   % bibliography formatting with biblatex
+backend=biber,                 % use biber instead of bibtex
+citestyle=alphabetic,          % alphabetic citations
+style=alphabetic,              % alphabetic references
+maxbibnames=9                  % allow up to 9 authors in references
+]{biblatex}
+% suppress "In: " in articles...
+\renewbibmacro{in:}{\ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+% remove "pp." from page citation field
+\DeclareFieldFormat{pages}{#1}
+% correctly format arXiv entries
+\DeclareFieldFormat[arxiv]{eprint}{arXiv:#1}
+\DeclareFieldFormat[arxiv]{title}{``#1''}
+% suppress printing of various fields
+\DeclareFieldFormat{doi}{}
+\DeclareFieldFormat{issn}{}
+\DeclareFieldFormat{url}{}

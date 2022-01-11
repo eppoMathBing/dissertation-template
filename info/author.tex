@@ -1,0 +1,94 @@
+% This is a set of macros used by the template to specify your front-matter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PERSONAL INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% basic information to generate front matter
+% - you must change anything marked with "MODIFY"
+% - you might change something marked with "MODIFY?"
+% - there are comments in the file to help you through this
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% BIOGRAPHICAL INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\author}{Author}         % MODIFY thesis author
+\newcommand{\legalAuthor}{LegalAuthor} % MODIFY thesis author legal name
+
+% prior degrees
+% - use the same format to add additional degrees
+% - supports up to \degreeTen
+\newcommand{\degreeOne}{        % required
+  \degree
+  {BX}                          % MODIFY
+  {CollegeOrUniversity}         % MODIFY
+  {YEAR1}                       % MODIFY
+}
+\newcommand{\degreeTwo}{        % prior degree two
+  \degree
+  {MX}                          % MODIFY
+  {CollegeOrUniversity}         % MODIFY
+  {YEAR2}                       % MODIFY
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% THESIS INFORMATION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\dissertationOrThesis}{DISSERTATION} % either DISSERTATION or THESIS
+\newcommand{\acceptanceYear}{Year}   % MODIFY year thesis accepted
+\newcommand{\acceptanceMonth}{Month} % MODIFY month thesis accepted
+\newcommand{\acceptanceDate}{Date}   % MODIFY date thesis accepted
+
+% replace if this is not your program
+\newcommand{\degreeName}{Doctor of Philosophy in Mathematics}
+
+% title of dissertation/thesis:
+% - use \titleBreakFirstLine at the end of the first line to break it
+% - double space (using "\skipLine") if longer than three lines
+% - needs to be all caps
+\renewcommand{\title}           % MODIFY
+{
+  \doublespacing        %comment if your title is less than four lines
+  TITLE OF DISSERTATION
+  \par
+  GOES HERE WITH DOUBLE SPACE
+  \par
+  BECAUSE IT'S EXTRA LONG
+  \par
+  AND THAT'S OK
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% COMMITTEE MAKEUP %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MODIFY
+% - format is: \committee{FirstName}{LastName}{Role}{DepartmentName}{UniversityOrCollege}
+% - official order: Chair, Advisor, Member, Outside Examiner
+% - if a member doesn't exist, delete the command
+% - the template supports up to \committeeTen
+\newcommand{\committeeChair}{   % required
+  \committee
+  {FirstName}                   % MODIFY
+  {LastName}                    % MODIFY
+  {Chair}                       % MODIFY? (e.g. "and Faculty Advisor")
+  {Department of Mathematical Sciences} %MODIFY?
+  {Binghamton University}
+}
+\newcommand{\committeeOne}{
+  \committee
+  {FirstName}                   % MODIFY
+  {LastName}                    % MODIFY
+  {Faculty Advisor}             % MODIFY/REMOVE ENTRY?
+  {Department of Mathematical Sciences}
+  {Binghamton University}
+}
+\newcommand{\committeeTwo}{
+  \committee
+  {FirstName}                   % MODIFY
+  {LastName}                    % MODIFY
+  {Member}
+  {DepartmentName}              % MODIFY
+  {UniversityName}              % MODIFY
+}
+\newcommand{\committeeOutside}{ %required
+  \committee
+  {FirstName}                   % MODIFY
+  {LastName}                    % MODIFY
+  {Outside Examiner}
+  {DepartmentName}              % MODIFY
+  {UniversityName}              % MODIFY
+}

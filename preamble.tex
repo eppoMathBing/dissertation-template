@@ -1,0 +1,33 @@
+% This file contains your custom commands and package imports
+% NB: don't clash with packages/definitions in "format/macros.tex"!
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% standard maths packages; include more below as necessary
+\usepackage{amsthm,amssymb,mathtools}
+% make QED symbol a filled box, instead of unfilled box
+\renewcommand{\qedsymbol}{$\blacksquare$}
+% alternatively use the following:
+% \renewcommand{\qedsymbol}{\vrule height 5pt width 4pt depth -1pt}
+
+% I suggest using this package to make citations within the document easier
+\usepackage{cleveref}
+% now you can cite \Cref{label} and it will correctly pick a name
+% E.g. it prints Section, Lemma, or Theorem, etc, depending on label reference
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% nice theorem formatting (change as needed)
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+
+\theoremstyle{definition}
+\newtheorem{exam}[thm]{Example}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{prob}[thm]{Problem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% user-defined commands go here (example included)
+
+\newcommand{\bb}{\mathbb}

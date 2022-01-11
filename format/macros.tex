@@ -1,0 +1,35 @@
+% page geometry for non-title pages
+\usepackage[left=1.5in,top=1in,bottom=1in,right=1in]{geometry}
+
+% makes spacing requirements easy; use "\doublespacing" before main text
+\usepackage{setspace}
+
+% makes dealing with extra committee members and such easy
+\usepackage{ifthen}
+
+% all text must be black in the thesis
+\usepackage[colorlinks=false]{hyperref}
+
+% chapter formatting % NB: this will clash with \documentclass{book}
+\newcommand{\headspace}{.45in}
+\newcommand{\chapter}[1]{\newpage\phantom{}\vspace{\headspace}\section{#1}}
+\newcommand{\spChapter}[1]{\newpage\phantom{}\vspace{\headspace}\section*{#1}}
+
+% first a few general macros to make stuff easier later...
+
+% macro to properly format committee members
+\newcommand{\committee}[5]
+{#1 #2, #3\par #4, #5\par}
+% \committee{FirstName}{LastName}{Postition}{DepartmentName}{UniversityName}
+
+% properly formats prior degrees
+\newcommand{\degree}[3]{#1, #2, #3}
+% \degree{DEGREE}{UNIVERSITY}{YEAR}
+
+% formatting macro for skipping two lines
+\newcommand{\skipTwo}{\par\phantom{}\par\phantom{}\par}
+
+% formatting macro for skipping one line
+\newcommand{\skipLine}{\par\phantom{}\par}
+
+\newcommand{\titleBreakLine}[1]{\ifthenelse{\equal{#1}{double}}{\par\vspace{-13ex}}{\par\vspace{-10ex}}}
