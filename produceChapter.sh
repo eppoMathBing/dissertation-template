@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 # produce only a chapter of the thesis in its own tex file
 
