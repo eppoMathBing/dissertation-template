@@ -8,6 +8,8 @@
 **.out
 **.pdf
 **.toc
+# ignore synctex files
+**.synctex.gz*
 # ignore latexmk files
 **.fdb_latexmk
 **.fls
