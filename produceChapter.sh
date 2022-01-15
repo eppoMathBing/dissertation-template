@@ -2,8 +2,8 @@
 
 # produce only a chapter of the thesis in its own tex file
 
-# copy the sources file
-cp sources.bib tmp/sources.bib
+# link the sources and preamble in tmp/
+ln -is -t tmp ../preamble.tex ../sources.bib
 
 # make a file
 OUTFILE="tmp/$2.tex"
@@ -11,22 +11,24 @@ OUTFILE="tmp/$2.tex"
 echo '\\documentclass[12pt]{article}
 \\newcommand{\\chapter}{\\section}
 \\newcommand{\\spChapter}{\\section}
+\\include{preamble}
 
 ' > $OUTFILE
-# include preamble.tex
-cat "preamble.tex" >> $OUTFILE
 # include bibliography formatting
 cat "format/bibliography.tex" >> $OUTFILE
-# include the sources file and begin document
-echo '\\addbibresource{sources.bib}
-\\begin{document}\n\n
-
+# finish bibliography formatting and begin document
+echo '
+\\addbibresource{sources.bib}
+\\begin{document}
 ' >> $OUTFILE
 # include the named chapter (do NOT include the .tex)
 cat "content/$1.tex" >> $OUTFILE
 # add bibliography and end document
 echo '
-
 \\printbibliography
 \\end{document}
 ' >> $OUTFILE
+
+# warn Emacs users of local variables
+echo 'Emacs users: this file may include local variables you do not intend to set.
+You should fix these manually...'
