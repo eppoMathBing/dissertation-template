@@ -111,18 +111,18 @@ This template directory is structured as follows:
 
   A short README introduction to how this all works.
   Hey, that's me!
-* Easy Proofreading Guide
-To make files on a per-chapter basis for proofreading, e.g., to send to your advisor, use the following shell commands from a terminal in the thesis directory.
+* Easy Edits/Proofreading Guide
+To make files on a per-chapter basis for editing or proofreading, e.g., to send to your advisor, use the following shell commands from a terminal in the thesis directory (i.e. the location of this =README.org=).
 #+begin_src shell
-  ./produceChapter.sh NameOfChapter NameOfOutput
+  ./produceChapter.sh NameOfChapter
 #+end_src
-This will build a working =.tex= file in =tmp/= with body from =content/NameOfChapter.tex= and all of your preamble stuff.
-You can then compile the file in =tmp/= and send the PDF to whoever you want :)
+This will build the chapter in three ways, each housed in a new subdirectory of =tmp/NameOfChapter=.
++ =tmp/nameOfChapter/edit/= contains copies of the files and a small =main.tex= for easier file-local edits.
++ =tmp/nameOfChapter/link/= contains symlinked copies of the files and a small =main.tex= for easier global editing.
++ =tmp/nameOfChapter/unified/= contains a single-file version for easier localized editing.
 
-Note that the produced =.tex= file will *not* have the same formatting as the thesis general.
-This is intentional!
-The thesis formatting is a bit wasteful on paper.
-Modify the =.tex= file if you don't like it :P
+The produced =.pdf= files will *not* have the same formatting as the thesis general---this is intentional.
+The thesis formatting is a bit wasteful on paper; modify the =.tex= files if you don't like it :P
 * Minimal Start-Up Guide
 To get started minimally with this, you should:
 1. Modify =info/author.tex= to include all the requested information.

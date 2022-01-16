@@ -1,34 +1,98 @@
 #!/bin/sh
 
-# produce only a chapter of the thesis in its own tex file
+# produce a chapter its own tex file
 
-# link the sources and preamble in tmp/
-ln -is -t tmp ../preamble.tex ../sources.bib
+# temporary directory
+TMP_DIR="tmp/$1"
+# multifile directory
+EDIT_DIR="$TMP_DIR/edit"
+# unified file directory
+UNI_DIR="$TMP_DIR/unified"
+# linked directory
+LINK_DIR="$TMP_DIR/link"
 
-# make a file
-OUTFILE="tmp/$2.tex"
+# make a temporary directories
+mkdir -pv $EDIT_DIR $UNI_DIR $LINK_DIR
+
+# copy sources and preamble into the edits
+cp -piv --target-directory=$EDIT_DIR sources.bib preamble.tex format/bibliography.tex content/$1.tex
+
+# make unified files
+cp -piv --target-directory=$UNI_DIR sources.bib
+
+# link the sources and preamble
+ln -fs -t $LINK_DIR ../../../preamble.tex ../../../sources.bib
+# link bibliography formatting
+ln -fs ../../../format/bibliography.tex $LINK_DIR/bibliography.tex
+# link chapter
+ln -fs ../../../content/$1.tex $LINK_DIR/content.tex
+
+# make a container for multifile format
+MAIN_FILE=$EDIT_DIR/edit--$1.tex
 # make document header
 echo '\\documentclass[12pt]{article}
 \\newcommand{\\chapter}{\\section}
 \\newcommand{\\spChapter}{\\section}
 \\include{preamble}
-
-' > $OUTFILE
-# include bibliography formatting
-cat "format/bibliography.tex" >> $OUTFILE
-# finish bibliography formatting and begin document
-echo '
+\\include{bibliography}
 \\addbibresource{sources.bib}
-\\begin{document}
-' >> $OUTFILE
-# include the named chapter (do NOT include the .tex)
-cat "content/$1.tex" >> $OUTFILE
-# add bibliography and end document
+\\begin{document}' > $MAIN_FILE
+echo "\\include{$1}" >> $MAIN_FILE
+echo '\\printbibliography
+\\end{document}
+' >> $MAIN_FILE
+
+# make a container for single-file format
+UNI_FILE="$UNI_DIR/unified--$1.tex"
 echo '
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\documentclass[12pt]{article}
+\\newcommand{\\chapter}{\\section}
+\\newcommand{\\spChapter}{\\section}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN USER PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' > $UNI_FILE
+cat preamble.tex >> $UNI_FILE
+echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END USER PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%% BEGIN BIBLIOGRAPHY FORMATTING %%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNI_FILE
+cat format/bibliography.tex >> $UNI_FILE
+echo '\\addbibresource{sources.bib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%% END BIBLIOGRAPHY FORMATTING %%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN YOUR DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\\begin{document}' >> $UNI_FILE
+cat content/$1.tex >> $UNI_FILE
+echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END YOUR DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% CONSTRUCT BIBLIOGRAPHY %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\printbibliography
 \\end{document}
-' >> $OUTFILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNI_FILE
+
+# make a container for linked format
+LINK_FILE="$LINK_DIR/main.tex"
+# make LaTeX document for compiling
+echo '\\documentclass[12pt]{article}
+\\newcommand{\\chapter}{\\section}
+\\newcommand{\\spChapter}{\\section}
+\\include{preamble}
+\\include{bibliography}
+\\addbibresource{sources.bib}
+\\begin{document}' > $LINK_FILE
+echo "\\include{content}" >> $LINK_FILE
+echo '\\printbibliography
+\\end{document}
+' >> $LINK_FILE
+
+
 
 # warn Emacs users of local variables
-echo 'Emacs users: this file may include local variables you do not intend to set.
-You should fix these manually...'
+echo "Warning for Emacs users: $UNI_FILE and $MAIN_FILE may have unintended local variables"
