@@ -2,6 +2,10 @@
 
 # produce a chapter its own tex file
 
+if [ $1 = "main" ]
+then echo "Calling this command with argument 'main' has undefined behaviour...  Exiting to prevent overwrite." && exit 1
+fi
+
 # temporary directory
 TMP_DIR="tmp/$1"
 # multifile directory
@@ -28,7 +32,7 @@ ln -fs ../../../format/bibliography.tex $LINK_DIR/bibliography.tex
 ln -fs ../../../content/$1.tex $LINK_DIR/content.tex
 
 # make a container for multifile format
-MAIN_FILE=$EDIT_DIR/edit--$1.tex
+MAIN_FILE=$EDIT_DIR/main.tex
 # make document header
 echo '\\documentclass[12pt]{article}
 \\newcommand{\\chapter}{\\section}
@@ -43,9 +47,8 @@ echo '\\printbibliography
 ' >> $MAIN_FILE
 
 # make a container for single-file format
-UNI_FILE="$UNI_DIR/unified--$1.tex"
-echo '
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+UNI_FILE=$UNI_DIR/main.tex
+echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\documentclass[12pt]{article}
@@ -78,7 +81,7 @@ echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNI_FILE
 
 # make a container for linked format
-LINK_FILE="$LINK_DIR/main.tex"
+LINK_FILE=$LINK_DIR/main.tex
 # make LaTeX document for compiling
 echo '\\documentclass[12pt]{article}
 \\newcommand{\\chapter}{\\section}
