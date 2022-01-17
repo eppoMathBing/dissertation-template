@@ -11,8 +11,12 @@ maxbibnames=9                  % allow up to 9 authors in references
 \DeclareFieldFormat{pages}{#1}
 % correctly format arXiv entries
 \DeclareFieldFormat[arxiv]{eprint}{arXiv:#1}
+\DeclareFieldFormat[arxiv]{primaryClass}{}
+\DeclareFieldFormat[arxiv]{secondaryClass}{}
+\DeclareFieldFormat[arxiv]{archivePrefix}{}
 \DeclareFieldFormat[arxiv]{title}{``#1''}
 % suppress printing of various fields
 \DeclareFieldFormat{doi}{}
+\DeclareFieldFormat{isbn}{}
 \DeclareFieldFormat{issn}{}
 \DeclareFieldFormat{url}{}
