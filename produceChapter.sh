@@ -9,30 +9,30 @@ fi
 # temporary directory
 TMP_DIR="tmp/$1"
 # multifile directory
-EDIT_DIR="$TMP_DIR/edit"
+HARD_DIR="$TMP_DIR/hard"
 # unified file directory
-UNI_DIR="$TMP_DIR/unified"
+UNIT_DIR="$TMP_DIR/unit"
 # linked directory
-LINK_DIR="$TMP_DIR/link"
+EDIT_DIR="$TMP_DIR/edit"
 
 # make a temporary directories
-mkdir -pv $EDIT_DIR $UNI_DIR $LINK_DIR
+mkdir -pv $HARD_DIR $UNIT_DIR $EDIT_DIR
 
 # copy sources and preamble into the edits
-cp -piv --target-directory=$EDIT_DIR sources.bib preamble.tex format/bibliography.tex content/$1.tex
+cp -piv --target-directory=$HARD_DIR sources.bib preamble.tex format/bibliography.tex content/$1.tex
 
 # make unified files
-cp -piv --target-directory=$UNI_DIR sources.bib
+cp -piv --target-directory=$UNIT_DIR sources.bib
 
 # link the sources and preamble
-ln -fs -t $LINK_DIR ../../../preamble.tex ../../../sources.bib
+ln -fs -t $EDIT_DIR ../../../preamble.tex ../../../sources.bib
 # link bibliography formatting
-ln -fs ../../../format/bibliography.tex $LINK_DIR/bibliography.tex
+ln -fs ../../../format/bibliography.tex $EDIT_DIR/bibliography.tex
 # link chapter
-ln -fs ../../../content/$1.tex $LINK_DIR/content.tex
+ln -fs ../../../content/$1.tex $EDIT_DIR/content.tex
 
 # make a container for multifile format
-MAIN_FILE=$EDIT_DIR/main.tex
+MAIN_FILE=$HARD_DIR/main.tex
 # make document header
 echo '\\documentclass[12pt]{article}
 \\newcommand{\\chapter}{\\section}
@@ -47,7 +47,7 @@ echo '\\printbibliography
 ' >> $MAIN_FILE
 
 # make a container for single-file format
-UNI_FILE=$UNI_DIR/main.tex
+UNIT_FILE=$UNIT_DIR/main.tex
 echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,20 +56,20 @@ echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\newcommand{\\spChapter}{\\section}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN USER PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' > $UNI_FILE
-cat preamble.tex >> $UNI_FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' > $UNIT_FILE
+cat preamble.tex >> $UNIT_FILE
 echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END USER PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%% BEGIN BIBLIOGRAPHY FORMATTING %%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNI_FILE
-cat format/bibliography.tex >> $UNI_FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNIT_FILE
+cat format/bibliography.tex >> $UNIT_FILE
 echo '\\addbibresource{sources.bib}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%% END BIBLIOGRAPHY FORMATTING %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%% BEGIN YOUR DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\\begin{document}' >> $UNI_FILE
-cat content/$1.tex >> $UNI_FILE
+\\begin{document}' >> $UNIT_FILE
+cat content/$1.tex >> $UNIT_FILE
 echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END YOUR DOCUMENT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%% CONSTRUCT BIBLIOGRAPHY %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -78,10 +78,10 @@ echo '%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \\end{document}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% END FILE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNI_FILE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%' >> $UNIT_FILE
 
 # make a container for linked format
-LINK_FILE=$LINK_DIR/main.tex
+EDIT_FILE=$EDIT_DIR/main.tex
 # make LaTeX document for compiling
 echo '\\documentclass[12pt]{article}
 \\newcommand{\\chapter}{\\section}
@@ -89,8 +89,8 @@ echo '\\documentclass[12pt]{article}
 \\include{preamble}
 \\include{bibliography}
 \\addbibresource{sources.bib}
-\\begin{document}' > $LINK_FILE
-echo "\\include{content}" >> $LINK_FILE
+\\begin{document}' > $EDIT_FILE
+echo "\\include{content}" >> $EDIT_FILE
 echo '\\printbibliography
 \\end{document}
-' >> $LINK_FILE
+' >> $EDIT_FILE
