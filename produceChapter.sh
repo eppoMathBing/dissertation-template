@@ -94,8 +94,3 @@ echo "\\include{content}" >> $LINK_FILE
 echo '\\printbibliography
 \\end{document}
 ' >> $LINK_FILE
-
-
-
-# warn Emacs users of local variables
-echo "Warning for Emacs users: $UNI_FILE and $MAIN_FILE may have unintended local variables"
