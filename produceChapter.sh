@@ -2,6 +2,31 @@
 
 # produce a chapter its own tex file
 
+HELP_STR='produce a thesis chapter from current directory
+
+SYNTAX:\tedit-thesis-chapter [options] [chapters]
+
+NOTE: options must be specified individually at the moment.
+
+OPTIONS:
+
+\t    --help       \tprint this help and exit
+
+\t-e, --edit       \ttoggle making linked files for edit
+\t                 \tthis option is the default behaviour
+
+\t-h. --hard       \tmake hard copies of files for edit
+
+\t-u, --unit       \tmake single-file version of chapter
+\t                 \tthis may not behave well with -i and -f
+
+\t-f, --force      \tforce overwrites
+
+\t-i, --interactive\tinteractively prompt all overwrites
+
+\t-v, --verbose    \texplain what is happening
+'
+
 # set initial options
 EDIT=0
 HARD=0
@@ -22,6 +47,8 @@ do
     then FORCE="--force"
     elif [ "$x" = '-v' ] || [ "$x" = '--verbose' ]
     then VERBOSE="--verbose"
+    elif [ "$x" = "--help" ]
+    then printf "$HELP_STR" && exit 0
     else
         FILES="${FILES} ${x}"
     fi
